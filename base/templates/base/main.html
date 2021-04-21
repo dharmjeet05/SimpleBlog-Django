@@ -52,7 +52,7 @@
                 </li>
 
             </ul>
-            <div class="ml-auto form-inline">
+            <div class="ml-auto d-lg-flex">
                 <ul class="navbar-nav ml-lg-auto">
                     {% if user.is_staff %}
                     <li class="nav-item ml-md-3">
@@ -80,7 +80,7 @@
                     </li>
                     {% endif %}
                 </ul>
-                <form method="GET" action="/search" class="my-2 my-lg-0">
+                <form method="GET" action="/search" class="my-2 my-lg-0 d-lg-flex">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
                         name="query" id="query">
                     <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
