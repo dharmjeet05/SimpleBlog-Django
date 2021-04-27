@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -89,13 +89,13 @@ def handleSignup(request):
         # Check for erroneous inputs
         if len(username) > 10:
             messages.error(request, "Username must be under 10 characters")
-            return redirect('base-home')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         if not username.isalnum():
             messages.error(request, "Username should only contain letters and numbers")
-            return redirect('base-home')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         if pass1 != pass2:
             messages.success(request, "Password do not match")
-            return redirect('base-home')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
         # Create the user
         myuser = User.objects.create_user(username, email, pass1)
@@ -120,10 +120,10 @@ def handleLogin(request):
         if user is not None:
             login(request, user)
             messages.success(request, "Successfully logged in....")
-            return redirect('base-home')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:
             messages.error(request, "invalid credentials, please try again")
-            return redirect('base-home')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
     return HttpResponse('404-not found')
 
@@ -131,7 +131,7 @@ def handleLogout(request):
 
     logout(request)
     messages.success(request, "Successfully logged out")
-    return redirect('base-home')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def handleAuthor(request, first_name):
