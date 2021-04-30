@@ -49,7 +49,7 @@ class BlogComment(models.Model):
     timeStamp = models.DateTimeField(default=now)
 
     class Meta:
-        verbose_name_plural = 'Blog Comments'
+        verbose_name_plural = 'Comments'
 
     def __str__(self):
         return self.comment
